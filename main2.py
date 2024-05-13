@@ -13,7 +13,7 @@ from mplsoccer import Pitch, Sbopen, VerticalPitch
 # Then, we filter the dataframe so that only shots are left.
 
 parser = Sbopen()
-df, related, freeze, tactics = parser.event(69301)
+df, related, freeze, tactics = parser.event(68345)
 # get team names
 team1, team2 = df.team_name.unique()
 # A dataframe of shots
