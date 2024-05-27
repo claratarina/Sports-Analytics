@@ -2,6 +2,8 @@ import requests
 import matplotlib.pyplot as plt
 from mplsoccer import Pitch
 import numpy as np
+from matplotlib.colors import Normalize
+from matplotlib.cm import ScalarMappable
 
 # Function to fetch match IDs for a given competition and season
 def fetch_match_ids(competition_id, season_id):
@@ -28,13 +30,10 @@ def fetch_touch_events(team_name, match_ids):
                     
     return touch_events
 
-# Function to plot the heatmap for multiple teams
-def plot_heatmaps_for_teams(teams, competition_id, season_id, vmax=None):
+# Function to plot the touch count for multiple teams
+def plot_touch_counts_for_teams(teams, competition_id, season_id):
     # Fetch match IDs for the competition and season
     match_ids = fetch_match_ids(competition_id, season_id)
-    
-    # Create a pitch object for drawing
-    pitch = Pitch(pitch_type='statsbomb', pitch_color='white', line_color='black')
     
     # Calculate the number of rows and columns for the grid layout
     num_teams = len(teams)
@@ -47,6 +46,7 @@ def plot_heatmaps_for_teams(teams, competition_id, season_id, vmax=None):
 
     for idx, team_name in enumerate(teams):
         ax = axes[idx]
+        pitch = Pitch(pitch_type='statsbomb', pitch_color='white', line_color='black')
         pitch.draw(ax=ax)
         
         # Fetch touch events for the team
@@ -62,15 +62,33 @@ def plot_heatmaps_for_teams(teams, competition_id, season_id, vmax=None):
             # Calculate the number of events in each bin
             bin_statistic = pitch.bin_statistic(x_coords, y_coords, statistic='count', bins=(6, 5))
             
-            # Plot the heatmap
-            heatmap = pitch.heatmap(bin_statistic, ax=ax, edgecolors='black', cmap='Reds', alpha=0.7, vmax=vmax)
+            # Normalize the data for coloring
+            norm = Normalize(vmin=0, vmax=1000)
+            cmap = plt.cm.Reds
+            
+            # Plot the colored squares
+            pc = pitch.heatmap(bin_statistic, ax=ax, cmap=cmap, edgecolors='black', alpha=0.7, vmin=0, vmax=1000)
+            
+            # Add text annotations for each bin
+            for i in range(bin_statistic['statistic'].shape[0]):
+                for j in range(bin_statistic['statistic'].shape[1]):
+                    bin_count = bin_statistic['statistic'][i, j]
+                    bin_center = bin_statistic['cx'][i, j], bin_statistic['cy'][i, j]
+                    ax.text(bin_center[0], bin_center[1], str(int(bin_count)),
+                            ha='center', va='center', fontsize=12, color='black')
             
             # Add a color scale using matplotlib directly
-            cbar = plt.colorbar(heatmap, ax=ax)
+            sm = ScalarMappable(cmap=cmap, norm=norm)
+            sm.set_array([])
+            cbar = plt.colorbar(sm, ax=ax)
             cbar.set_label(f'Number of touches', fontsize=12)
         
+        # Calculate and display the total number of touches for the team
+        total_touches = len(touch_events)
+        ax.text(0.5, 1.0, f"Total touches: {total_touches}", ha='center', va='center', transform=ax.transAxes, fontsize=12, color='black')
+        
         # Set title
-        ax.set_title(f"{team_name} Touch Heat Map", fontsize=15)
+        ax.set_title(f"{team_name} Touch Count Map", fontsize=15)
 
     # Remove any unused subplots
     for i in range(len(teams), len(axes)):
@@ -80,9 +98,9 @@ def plot_heatmaps_for_teams(teams, competition_id, season_id, vmax=None):
     plt.show()
 
 # Parameters
-teams = ["Spain Women's", "Sweden Women's", "England Women's"]
-competition_id = 72  # competition ID
-season_id = 107  # season ID
+teams = ["Germany Women's", "Sweden Women's", "England Women's"]
+competition_id = 53  # competition ID
+season_id = 106  # season ID
 
-# Plot heatmaps for the teams
-plot_heatmaps_for_teams(teams, competition_id, season_id, vmax=1000)  # Adjust vmax as needed
+# Plot touch counts for the teams
+plot_touch_counts_for_teams(teams, competition_id, season_id)
