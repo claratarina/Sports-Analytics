@@ -7,12 +7,12 @@ Project in the course Sports Analytics
  pip install pandas
 
 # Country id
-- Sweden id: 220
-- England id:
-- Spain id:
-- Germany id:
-- USA id:
-- Netherlands id: 
+- Sweden Women's id: 220
+- England Women's id: 68
+- Spain Women's id: 214
+- Germany Women's id: 85
+- United States Women's id: 241
+- Netherlands Women's id: 160
 
 #  Match id for World Cup 23
 - Competition id: 72
