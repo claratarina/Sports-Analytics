@@ -12,14 +12,13 @@ data = {
     'total_shots': [158, 94, 85, 108, 107, 88, 130, 86, 105],
     'xG for total shots': [17.8, 9.6, 11.78, 15.8, 11.66, 10.87, 16.5, 9.92, 10.46],
     'total_touches_final_third': [5659, 4045, 3573, 2930, 3051, 2567, 3797, 3600, 3439],
-    #'team performance versus xG': []    needs to be added
 }
 
 # Create a DataFrame
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-csv_file = 'team_performance_data.csv'
+csv_file = 'WC23.csv'
 df.to_csv(csv_file, index=False)
 print(f'Data saved to {csv_file}')
 

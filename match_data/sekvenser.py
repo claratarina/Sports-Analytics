@@ -22,7 +22,7 @@ def plot_events(ax, events, team_name, color, marker):
     return assist_location, pass_locations
 
 def plot_goals(match_events, match_id, num_cols, num_rows):
-    sweden_goal_events = [event for event in match_events if event['team']['name'] == "Spain Women's" and event['type']['name'] == 'Shot' and 'outcome' in event['shot'] and event['shot']['outcome']['name'] == 'Goal']
+    sweden_goal_events = [event for event in match_events if event['team']['name'] == "Sweden Women's" and event['type']['name'] == 'Shot' and 'outcome' in event['shot'] and event['shot']['outcome']['name'] == 'Goal']
     fig, axs = plt.subplots(num_rows, num_cols, figsize=(16, 8))
     axs = axs.flatten()
     for i, goal_event in enumerate(sweden_goal_events):
@@ -34,7 +34,7 @@ def plot_goals(match_events, match_id, num_cols, num_rows):
         preceding_events = [event for event in match_events if event['possession'] == goal_possession_id]
         pitch = Pitch(pitch_type='statsbomb')
         pitch.draw(ax=axs[i])
-        assist_location, pass_locations = plot_events(axs[i], preceding_events, "Spain Women's", 'blue', 'o')
+        assist_location, pass_locations = plot_events(axs[i], preceding_events, "Sweden Women's", 'blue', 'o')
         if pass_locations:
             pass_xs, pass_ys = zip(*pass_locations)
             axs[i].plot(pass_xs, pass_ys, 'blue')
@@ -54,16 +54,14 @@ def plot_goals(match_events, match_id, num_cols, num_rows):
     plt.tight_layout()
     plt.show()
 
-# List of example match IDs
-match_ids = [3906390, 3904628, 3893806, 3893822, 3902240, 3901733, 3893791
+match_ids = [3893796, 3893814, 3893830, 3901797, 3902239, 3904628, 3906389
 ]
 
-# Fetch events data for each match and plot the events that ended up in Sweden scoring a goal
 for match_id in match_ids:
     events_url = f'https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/{match_id}.json'
     response = requests.get(events_url)
     match_events = response.json()
-    sweden_goal_events = [event for event in match_events if event['team']['name'] == "Spain Women's" and event['type']['name'] == 'Shot' and 'outcome' in event['shot'] and event['shot']['outcome']['name'] == 'Goal']
+    sweden_goal_events = [event for event in match_events if event['team']['name'] == "Sweden Women's" and event['type']['name'] == 'Shot' and 'outcome' in event['shot'] and event['shot']['outcome']['name'] == 'Goal']
     num_goals = len(sweden_goal_events)
     num_cols = 2
     num_rows = (num_goals + 1) // num_cols + ((num_goals + 1) % num_cols != 0)

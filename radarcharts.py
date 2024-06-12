@@ -1,6 +1,14 @@
 import pandas as pd
 from mplsoccer import Radar
 import matplotlib.pyplot as plt
+import os
+
+def clear_terminal():
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+# Clear the terminal before starting
+clear_terminal()
 
 # Read the data from CSV
 df = pd.read_csv('team_performance_data.csv')
@@ -46,7 +54,7 @@ def plot_radar_chart(df, teams, competition_id, season_id):
             team_data['avg_goals_per_match'] if pd.notnull(team_data['avg_goals_per_match']) else 0, 
             team_data['total_goals'], 
             team_data['total_shots'], 
-            team_data['xG'], 
+            team_data['xG for total shots'], 
             team_data['total_touches_final_third']
         ]
         
@@ -118,5 +126,5 @@ def plot_radar_chart(df, teams, competition_id, season_id):
     plt.show()
 
 # Example usage
-plot_radar_chart(df, ['USA', 'Sweden'], 72, 30)
+plot_radar_chart(df, ['England', 'Sweden'], 72, 107)
 #plot_radar_chart(df, ['Spain'], 72, 107)
