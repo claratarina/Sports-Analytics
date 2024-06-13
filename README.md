@@ -1,7 +1,7 @@
 # SportsAnalytics-project
 Project in the course Sports Analytics
 
-# Installiation 
+# Installation 
 - pip install mplsoccer
 - pip install statsbombpy
 - pip install pandas
