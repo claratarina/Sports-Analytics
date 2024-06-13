@@ -2,9 +2,9 @@
 Project in the course Sports Analytics
 
 # Installiation 
- pip install mplsoccer
- pip install statsbombpy
- pip install pandas
+- pip install mplsoccer
+- pip install statsbombpy
+- pip install pandas
 
 # Country id
 - Sweden Women's id: 220
@@ -21,7 +21,7 @@ Project in the course Sports Analytics
 - South africa: 3893796
 - Argentina: 3893830
 - Japan: 3902239
-- USA:3901797
+- USA: 3901797
 - Italy: 3893814
 - Spain: 3904628
 - Australia: 3906389
@@ -39,7 +39,7 @@ Project in the course Sports Analytics
 ## Spain
 - Costa rica: 3893791
 - Switzerland: 3901733
-- Netherlands:3 902240
+- Netherlands:3902240
 - Japan: 3893822
 - Zambia: 3893806
 - Sweden: 3904628
