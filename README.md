@@ -1,5 +1,7 @@
 # SportsAnalytics-project
 Project in the course Sports Analytics
+![cover image](Euros22_swe-england.png)
+[Link report](https://docs.google.com/document/d/1Gipro1lEUQog7wbXnazbFTLQlMaZlAnTznP7ucclldw/edit?usp=sharing)
 
 # Installation 
 - pip install mplsoccer
